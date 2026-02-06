@@ -11,7 +11,8 @@ export default function Checkout() {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [quantity, setQuantity] = useState(1);
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
+// const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
+const API_URL = "http://localhost:2000";
   const handleSubmit = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) return navigate("/login");

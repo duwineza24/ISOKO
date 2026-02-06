@@ -6,7 +6,8 @@ export default function OrderHistory() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
- const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
+//  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
+const API_URL = "http://localhost:2000";
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     const token = localStorage.getItem("token");

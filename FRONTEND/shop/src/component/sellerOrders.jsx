@@ -33,7 +33,9 @@ export default function SellerOrdersAll() {
 
     fetchOrders();
   }, [token]);
- const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
+//  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
+const API_URL = "http://localhost:2000";
+
   // ================= UPDATE PAYMENT STATUS =================
   const updatePaymentStatus = async (orderId, status) => {
     setUpdatingId(orderId);

@@ -11,7 +11,8 @@ const SellerDashboard = () => {
     products: 0,
     orders: 0,
   });
- const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
+//  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
+const API_URL = "http://localhost:2000";
   useEffect(() => {
     const loadData = async () => {
       try {

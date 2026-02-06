@@ -8,7 +8,8 @@ import {
   FaShoppingBag,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
+// const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
+const API_URL = "http://localhost:2000";
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
