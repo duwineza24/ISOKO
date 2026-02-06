@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const AddProduct = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -24,7 +24,7 @@ const AddProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:2000/api/product/", {
+    const res = await fetch(`${API_URL}/api/product/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

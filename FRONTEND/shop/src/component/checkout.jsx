@@ -11,7 +11,7 @@ export default function Checkout() {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [quantity, setQuantity] = useState(1);
-
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
   const handleSubmit = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) return navigate("/login");
@@ -24,7 +24,7 @@ export default function Checkout() {
     };
 
     const token = localStorage.getItem("token");
-    const res = await fetch("http://localhost:2000/api/order", {
+    const res = await fetch(`${API_URL}/api/order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
