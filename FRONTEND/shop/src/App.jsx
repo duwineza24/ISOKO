@@ -17,6 +17,7 @@ import SellerOrders from "./component/sellerOrders";
 import SellerWelcome from "./component/sellerWelcome";
 import SellerAnalytics from "./component/SellerAnalytics";
 import OrderHistory from "./component/OrderHistory";
+import AdminDashboard from "./component/AdminDashboard";
 // import ForgotPassword from "./component/ForgotPassword";
 // import ResetPassword from "./component/ResetPassword";
 
@@ -36,8 +37,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-          </Route>x
-
+          </Route>
+          
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/customer" element={<CustomerDashboard />} />
           <Route path="/customer/products" element={<CustomerProduct />} />
           <Route path="/customer/history" element={<OrderHistory />} />

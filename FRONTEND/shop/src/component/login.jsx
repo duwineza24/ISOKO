@@ -1,14 +1,9 @@
 import { useState, useEffect } from "react";
-import {
-  FaEnvelope,
-  FaLock,
-  FaCheckCircle,
-  FaStore,
-  FaShoppingBag,
-} from "react-icons/fa";
+import { FaEnvelope, FaLock, FaCheckCircle, FaStore, FaShoppingBag } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-// const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
+
 const API_URL = "http://localhost:2000";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +12,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  // ✅ Auto-login (safe)
+  // ✅ Auto-login safe redirect
   useEffect(() => {
     const token = localStorage.getItem("token");
     const userStr = localStorage.getItem("user");
@@ -28,9 +23,21 @@ const Login = () => {
       const user = JSON.parse(userStr);
       if (!user?.role) return;
 
-      if (user.role === "seller") navigate("/seller");
-      else navigate("/customer");
-    } catch {
+      // Check admin first to avoid wrong redirect
+      switch (user.role) {
+        case "admin":
+          navigate("/admin");
+          break;
+        case "seller":
+          navigate("/seller");
+          break;
+        case "customer":
+          navigate("/customer");
+          break;
+        default:
+          localStorage.clear();
+      }
+    } catch (err) {
       localStorage.clear();
     }
   }, [navigate]);
@@ -54,13 +61,26 @@ const Login = () => {
         return setError(data?.message || "Invalid email or password");
       }
 
+      // Save user and token
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
       setLoading(false);
 
-      if (data.user.role === "seller") navigate("/seller");
-      else navigate("/customer");
+      // Redirect based on role, admin first
+      switch (data.user.role) {
+        case "admin":
+          navigate("/admin");
+          break;
+        case "seller":
+          navigate("/seller");
+          break;
+        case "customer":
+          navigate("/customer");
+          break;
+        default:
+          setError("Unknown user role");
+      }
     } catch (err) {
       setError("Something went wrong. Please try again.");
       setLoading(false);
@@ -69,13 +89,11 @@ const Login = () => {
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-gray-50">
-      {/* ================= LEFT CONTENT ================= */}
+      {/* LEFT INFO PANEL */}
       <div className="hidden md:flex flex-col justify-center px-14 bg-gradient-to-br from-black to-gray-900 text-white">
         <h1 className="text-4xl font-extrabold mb-4">Welcome Back</h1>
-
         <p className="text-gray-300 mb-10 max-w-md">
-          Log in to continue shopping, manage your orders, or grow your business
-          as a seller.
+          Log in to continue shopping, manage your orders, or grow your business as a seller/admin.
         </p>
 
         <div className="space-y-5">
@@ -83,12 +101,10 @@ const Login = () => {
             <FaShoppingBag className="text-green-400" />
             <span>Access your purchases instantly</span>
           </div>
-
           <div className="flex items-center gap-3">
             <FaStore className="text-yellow-400" />
             <span>Manage products & sales</span>
           </div>
-
           <div className="flex items-center gap-3">
             <FaCheckCircle className="text-blue-400" />
             <span>Secure & trusted login</span>
@@ -100,25 +116,16 @@ const Login = () => {
         </div>
       </div>
 
-      {/* ================= LOGIN FORM ================= */}
+      {/* LOGIN FORM */}
       <div className="flex items-center justify-center px-4">
         <form
           onSubmit={handleLogin}
           className="w-full max-w-md bg-white/60 backdrop-blur-md border p-8 rounded-2xl shadow-xl"
         >
-          <h2 className="text-3xl font-bold text-center mb-2">
-            Login to Your Account
-          </h2>
+          <h2 className="text-3xl font-bold text-center mb-2">Login to Your Account</h2>
+          <p className="text-center text-gray-600 mb-6 text-sm">Enter your credentials to continue</p>
 
-          <p className="text-center text-gray-600 mb-6 text-sm">
-            Enter your credentials to continue
-          </p>
-
-          {error && (
-            <p className="text-red-500 mb-4 text-center font-semibold">
-              {error}
-            </p>
-          )}
+          {error && <p className="text-red-500 mb-4 text-center font-semibold">{error}</p>}
 
           <div className="relative mb-4">
             <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-700" />
@@ -152,32 +159,23 @@ const Login = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
 
-          {/* ================= NAV LINKS ================= */}
+          {/* NAV LINKS */}
           <div className="mt-6 text-center text-sm space-y-2">
             <p>
               Don’t have an account?
-              <span
-                onClick={() => navigate("/register")}
-                className="font-semibold cursor-pointer hover:underline ml-1"
-              >
+              <span onClick={() => navigate("/register")} className="font-semibold cursor-pointer hover:underline ml-1">
                 Register
               </span>
             </p>
-
             <p>
-              <span
-                onClick={() => navigate("/")}
-                className="cursor-pointer hover:underline"
-              >
+              <span onClick={() => navigate("/")} className="cursor-pointer hover:underline">
                 Back to Home
               </span>
             </p>
           </div>
 
-          {/* ================= TRUST NOTE ================= */}
-          <p className="mt-6 text-xs text-center text-gray-500">
-            🔒 Your information is encrypted and secure
-          </p>
+          {/* TRUST NOTE */}
+          <p className="mt-6 text-xs text-center text-gray-500">🔒 Your information is encrypted and secure</p>
         </form>
       </div>
     </div>

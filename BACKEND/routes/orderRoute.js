@@ -20,7 +20,9 @@ router.get("/seller", protect, getOrdersForSeller);
 router.get("/product/:productId", protect, getOrdersByProduct);
 
 router.put("/:orderId/status", protect, updateOrderStatus);
-router.put("/:orderId/payment", protect, updatePaymentStatus);
+router.put("/:orderId/payment", updatePaymentStatus);
+
+
 router.put("/:orderId", protect, updateOrder);
 router.delete("/:orderId", protect, deleteOrder);
 

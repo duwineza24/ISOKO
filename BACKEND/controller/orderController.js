@@ -135,7 +135,9 @@ const updatePaymentStatus = async (req, res) => {
       { paymentStatus },
       { new: true }
     );
-
+ console.log("HIT UPDATE PAYMENT"); // 👈 add this
+  console.log("Params:", req.params);
+  console.log("Body:", req.body);
     res.status(200).json({
       message: "Payment status updated",
       order: updatedOrder,

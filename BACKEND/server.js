@@ -30,7 +30,9 @@ connectDB();
 const userRouter = require("./routes/userRoute");
 const productRouter = require("./routes/productRoute");
 const orderRouter = require("./routes/orderRoute");
+const adminRouter = require("./routes/adminRoutes");
 
+app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
 app.use("/api/order", orderRouter);

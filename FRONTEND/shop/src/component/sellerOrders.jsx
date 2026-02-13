@@ -41,7 +41,7 @@ const API_URL = "http://localhost:2000";
     setUpdatingId(orderId);
     try {
       const res = await fetch(
-        `${API_URL}/api/order/${orderId}/payment`,
+        `${API_URL}/api/${orderId}/payment`,
         {
           method: "PUT",
           headers: {

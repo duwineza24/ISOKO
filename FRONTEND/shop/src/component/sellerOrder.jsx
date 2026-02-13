@@ -61,7 +61,7 @@ export default function SellerOrder() {
     setUpdatingId(orderId);
     try {
       const res = await fetch(
-        `${API_URL}/api/order/${orderId}/status`,
+        `${API_URL}/api/${orderId}/status`,
         {
           method: "PUT",
           headers: {
