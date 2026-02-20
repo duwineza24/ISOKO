@@ -5,8 +5,8 @@ export default function SellerOrder() {
   const { productId } = useParams();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  // const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
-  const API_URL = "http://localhost:2000";
+const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
+  // const API_URL = "http://localhost:2000";
   const [orders, setOrders] = useState([]);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -92,7 +92,7 @@ export default function SellerOrder() {
   const updatePaymentStatus = async (orderId, status) => {
     setUpdatingId(orderId);
     try {
-      const res = await fetch(`http://localhost:2000/api/order/${orderId}/payment`, {
+      const res = await fetch(`${API_URL}/api/order/${orderId}/payment`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

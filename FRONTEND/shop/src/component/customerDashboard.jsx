@@ -15,8 +15,8 @@ import {
 
 
 
-// const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
-const API_URL = "http://localhost:2000";
+const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
+// const API_URL = "http://localhost:2000";
 export default function CustomerDashboard() {
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState({

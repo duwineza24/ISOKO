@@ -8,10 +8,14 @@ export default function SellerOrdersAll() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
+  const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
+
+  
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await fetch("http://localhost:2000/api/order/seller", {
+        const res = await fetch(`${API_URL}/api/order/seller`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -33,8 +37,6 @@ export default function SellerOrdersAll() {
 
     fetchOrders();
   }, [token]);
-//  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
-const API_URL = "http://localhost:2000";
 
   // ================= UPDATE PAYMENT STATUS =================
   const updatePaymentStatus = async (orderId, status) => {

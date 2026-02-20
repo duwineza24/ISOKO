@@ -14,8 +14,8 @@ const SellerProducts = () => {
     description: "",
   });
  
-  // const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:2000';
-  const API_URL = "http://localhost:2000";
+const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
+  // const API_URL = "http://localhost:2000";
 
   const token = localStorage.getItem("token");
   const navigate = useNavigate();

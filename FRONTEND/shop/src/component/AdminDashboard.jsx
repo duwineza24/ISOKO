@@ -18,7 +18,7 @@ import {
   FaTimesCircle,
 } from "react-icons/fa";
 
-const API_URL = "http://localhost:2000";
+const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
