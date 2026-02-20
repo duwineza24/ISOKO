@@ -20,12 +20,19 @@ export default function Navbar({ dark }) {
       } shadow-md`}
     >
       {/* Logo */}
-      <Link
-        to="/"
-        className="text-2xl font-extrabold tracking-wide hover:opacity-80 transition"
-      >
-        Shopper<span className="text-blue-500">Ease</span>
-      </Link>
+     <Link
+  to="/"
+  className="flex items-center gap-2 hover:opacity-80 transition"
+>
+  <img 
+    src="./public/logo.png"
+    alt="Logo" 
+    className="h-8 w-8"
+  />
+  <span className="text-2xl font-extrabold tracking-wide">
+    Shopper<span className="text-blue-500">Ease</span>
+  </span>
+</Link>
 
       {/* Desktop Menu */}
       <ul className="hidden md:flex gap-8 text-base font-medium">
