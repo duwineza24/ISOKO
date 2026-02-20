@@ -25,7 +25,7 @@ export default function Navbar({ dark }) {
   className="flex items-center gap-2 hover:opacity-80 transition"
 >
   <img 
-    src="./public/logo.png"
+    src="/logo.png"
     alt="Logo" 
     className="h-8 w-8"
   />
