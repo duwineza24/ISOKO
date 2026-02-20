@@ -80,24 +80,32 @@ const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
   };
 
   /* ===================== SAVE ===================== */
-  const saveOrder = async (id) => {
-    const token = localStorage.getItem("token");
+ const saveOrder = async (id) => {
+  const token = localStorage.getItem("token");
 
-    const res = await fetch(`${API_URL}/api/order/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(drafts[id]),
-    });
+  const { items, shippingAddress, totalAmount, orderStatus, paymentStatus } = drafts[id];
 
-    if (!res.ok) return alert("Failed to save changes");
+  const res = await fetch(`${API_URL}/api/order/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+  items,
+  shippingAddress,
+  totalAmount,
+  orderStatus: orderStatus?.toLowerCase(),
+  paymentStatus: paymentStatus?.toLowerCase(),
+}),
+  });
 
-    const updated = await res.json();
-    setOrders((prev) => prev.map((o) => (o._id === id ? updated : o)));
-    cancelEdit(id);
-  };
+  if (!res.ok) return alert("Failed to save changes");
+
+  const updated = await res.json();
+  setOrders((prev) => prev.map((o) => (o._id === id ? updated : o)));
+  cancelEdit(id);
+};
 
   /* ===================== DELETE ===================== */
   const deleteOrder = async (id) => {

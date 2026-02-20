@@ -61,7 +61,7 @@ const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
     setUpdatingId(orderId);
     try {
       const res = await fetch(
-        `${API_URL}/api/${orderId}/status`,
+        `${API_URL}/api/order/${orderId}/status`,
         {
           method: "PUT",
           headers: {

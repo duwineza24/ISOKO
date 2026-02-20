@@ -153,28 +153,43 @@ const updateOrder = async (req, res) => {
     const { orderId } = req.params;
     const updates = req.body;
 
-    // optional: validate updates (items array, shippingAddress shape, etc.)
     const order = await Order.findById(orderId);
-    if (!order) return res.status(404).json({ message: "Order not found" });
+    if (!order)
+      return res.status(404).json({ message: "Order not found" });
 
-    // Ensure only owner can update
-    if (req.user && order.userId.toString() !== req.user._id.toString()) {
+    // Only owner can update
+    if (
+      req.user &&
+      order.userId.toString() !== req.user._id.toString()
+    ) {
       return res.status(403).json({ message: "Not allowed" });
     }
 
-    // Apply updates (simple approach: replace fields provided)
-    if (updates.items) order.items = updates.items;
-    if (updates.shippingAddress)
+    // ✅ Replace fields properly
+    if (updates.items !== undefined)
+      order.items = updates.items;
+
+    if (updates.shippingAddress !== undefined)
       order.shippingAddress = updates.shippingAddress;
+
     if (updates.totalAmount !== undefined)
       order.totalAmount = updates.totalAmount;
-    if (updates.orderStatus) order.orderStatus = updates.orderStatus;
-    if (updates.paymentStatus) order.paymentStatus = updates.paymentStatus;
+
+    // 🔥 THIS IS THE IMPORTANT FIX
+    if (updates.orderStatus !== undefined)
+      order.orderStatus = updates.orderStatus;
+
+    if (updates.paymentStatus !== undefined)
+      order.paymentStatus = updates.paymentStatus;
 
     const saved = await order.save();
+
     res.status(200).json(saved);
   } catch (e) {
-    res.status(500).json({ message: "Server error", error: e.message });
+    res.status(500).json({
+      message: "Server error",
+      error: e.message,
+    });
   }
 };
 
