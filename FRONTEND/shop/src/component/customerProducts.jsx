@@ -13,7 +13,7 @@ export default function CustomerProduct() {
   const itemsPerPage = 8;
 
   const navigate = useNavigate();
-const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
+const API_URL = import.meta.env.VITE_APP_API_URL||'http://localhost:2000';
 // const API_URL = "http://localhost:2000";
   /* ================= AUTH CHECK ================= */
   useEffect(() => {

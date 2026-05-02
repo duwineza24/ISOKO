@@ -9,7 +9,7 @@ import {
   FaShieldAlt,
   FaStar,
 } from "react-icons/fa";
-const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
+const API_URL = import.meta.env.VITE_APP_API_URL||'http://localhost:2000';
 // const API_URL = "http://localhost:2000";
 
 export default function Home() {
