@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function SellerOrdersAll() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState(null); // ✅ FIX
-  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';

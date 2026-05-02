@@ -20,12 +20,6 @@ const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
     canceled: "bg-red-500/20 text-red-400",
   };
 
-  const paymentBadge = {
-    Paid: "text-green-400",
-    Pending: "text-yellow-400",
-    Failed: "text-red-400",
-  };
-
   // ================= FETCH ORDERS =================
   useEffect(() => {
     const fetchOrders = async () => {

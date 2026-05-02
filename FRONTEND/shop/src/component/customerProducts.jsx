@@ -26,19 +26,17 @@ const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
   }, []);
 
   /* ================= FETCH PRODUCTS ================= */
-  const fetchProducts = async () => {
-    try {
-      const res = await fetch(`${API_URL}/api/product`);
-      const data = await res.json();
-      setProducts(data);
-      setLoading(false);
-    } catch (err) {
-      console.error("Fetch error:", err);
-    }
-  };
-
   useEffect(() => {
-    fetchProducts();
+    (async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/product`);
+        const data = await res.json();
+        setProducts(data);
+        setLoading(false);
+      } catch (err) {
+        console.error("Fetch error:", err);
+      }
+    })();
   }, []);
 
   const handleOrder = (product) => {

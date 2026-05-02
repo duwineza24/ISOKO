@@ -45,7 +45,7 @@ const Register = () => {
       setLoading(false);
 
       setTimeout(() => navigate("/login"), 1500);
-    } catch (err) {
+    } catch  {
       setError("Something went wrong.");
       setLoading(false);
     }

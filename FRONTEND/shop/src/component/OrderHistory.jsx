@@ -34,7 +34,7 @@ const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
         );
 
         setOrders(deliveredOrders);
-      } catch (err) {
+      } catch  {
         alert("Failed to load order history");
       } finally {
         setLoading(false);

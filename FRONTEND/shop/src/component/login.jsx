@@ -37,7 +37,7 @@ const Login = () => {
         default:
           localStorage.clear();
       }
-    } catch (err) {
+    } catch {
       localStorage.clear();
     }
   }, [navigate]);
@@ -81,7 +81,7 @@ const Login = () => {
         default:
           setError("Unknown user role");
       }
-    } catch (err) {
+    } catch {
       setError("Something went wrong. Please try again.");
       setLoading(false);
     }

@@ -10,17 +10,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// Configure CORS for production
-// const corsOptions = {
-//   origin: [
-//     'http://localhost:2000',
-//     'https://shopperease-frontend.vercel.app'
-//   ],
-//   credentials: true,
-//   optionsSuccessStatus: 200
-// };
 
-// app.use(cors(corsOptions));
 app.use(cors());
 
 // Connect to MongoDB

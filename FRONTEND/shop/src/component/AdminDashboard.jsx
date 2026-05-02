@@ -47,37 +47,37 @@ const AdminDashboard = () => {
   }, [navigate, user]);
 
   useEffect(() => {
-    if (token) fetchStats();
-  }, [token]);
+    if (token) {
+      (async () => {
+        try {
+          const [usersRes, productsRes, ordersRes] = await Promise.all([
+            fetch(`${API_URL}/api/admin/users`, {
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+            fetch(`${API_URL}/api/admin/products`, {
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+            fetch(`${API_URL}/api/admin/orders`, {
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+          ]);
 
-  const fetchStats = async () => {
-    try {
-      const [usersRes, productsRes, ordersRes] = await Promise.all([
-        fetch(`${API_URL}/api/admin/users`, {
-          headers: { Authorization: `Bearer ${token}` },
-        }),
-        fetch(`${API_URL}/api/admin/products`, {
-          headers: { Authorization: `Bearer ${token}` },
-        }),
-        fetch(`${API_URL}/api/admin/orders`, {
-          headers: { Authorization: `Bearer ${token}` },
-        }),
-      ]);
+          const usersData = await usersRes.json();
+          const productsData = await productsRes.json();
+          const ordersData = await ordersRes.json();
 
-      const usersData = await usersRes.json();
-      const productsData = await productsRes.json();
-      const ordersData = await ordersRes.json();
-
-      setStats({
-        users: usersData.length,
-        sellers: usersData.filter((u) => u.role === "seller").length,
-        products: productsData.length,
-        orders: ordersData.length,
-      });
-    } catch {
-      setError("Failed to load dashboard stats");
+          setStats({
+            users: usersData.length,
+            sellers: usersData.filter((u) => u.role === "seller").length,
+            products: productsData.length,
+            orders: ordersData.length,
+          });
+        } catch {
+          setError("Failed to load dashboard stats");
+        }
+      })();
     }
-  };
+  }, [token]);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -484,7 +484,7 @@ const NavButton = ({ onClick, active, icon, label, color }) => {
   );
 };
 
-const Stat = ({ title, value, icon, gradient, lightBg, textColor }) => (
+const Stat = ({ title, value, icon, gradient, textColor }) => (
   <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-100 hover:scale-105">
     <div className="flex items-center justify-between mb-4">
       <div className={`w-14 h-14 bg-gradient-to-br ${gradient} rounded-xl flex items-center justify-center shadow-lg`}>

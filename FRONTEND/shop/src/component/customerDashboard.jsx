@@ -18,7 +18,10 @@ import {
 const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
 // const API_URL = "http://localhost:2000";
 export default function CustomerDashboard() {
-  const [user, setUser] = useState(null);
+  const [user] = useState(() => {
+    const saved = localStorage.getItem("user");
+    return saved ? JSON.parse(saved) : null;
+  });
   const [stats, setStats] = useState({
     totalOrders: 0,
     inDelivery: 0,
@@ -43,17 +46,14 @@ export default function CustomerDashboard() {
 
   // ================= USER =================
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
     const token = localStorage.getItem("token");
-    if (!savedUser || !token) {
+    if (!user || !token) {
       navigate("/login");
       return;
     }
-    const userObj = JSON.parse(savedUser);
-    setUser(userObj);
 
     // Fetch orders for stats
-    fetch(`${API_URL}/api/order/user/${userObj._id}`, {
+    fetch(`${API_URL}/api/order/user/${user._id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -76,7 +76,7 @@ export default function CustomerDashboard() {
         });
       })
       .catch((err) => console.error("Failed to fetch orders:", err));
-  }, [navigate]);
+  }, [navigate, user]);
 
   // ================= LOGOUT =================
   const handleLogout = () => {

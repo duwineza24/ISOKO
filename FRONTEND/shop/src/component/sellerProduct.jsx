@@ -33,7 +33,17 @@ const API_URL = import.meta.env.VITE_APP_API_URL || 'http://localhost:2000';
   };
 
   useEffect(() => {
-    fetchProducts();
+    (async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/product/seller/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        setProducts(data);
+      } catch (err) {
+        console.error("Error loading seller products:", err);
+      }
+    })();
   }, []);
 
   const handleChange = (e) =>
